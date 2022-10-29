@@ -147,21 +147,10 @@ N1 <- 10
 N2 <- 100
 N3 <- 1000
 
-# #     funkcija, ki ponovi funkcijo monte M-krat in nam vrne vektor 
-# #          M vrednosti funkcije monte:
-# #     funkcijo sem napisala kar v funkciji histogram
-# monte_simulacija <- function(S0, u, d, U, R, T, type, N, M) {
-#   vek <- c()
-#   while (M > 0) {
-#     vek <- append(vek, monte(S0, u, d, U, R, T, type, N))
-#     M <- M - 1
-#   }
-#   return(vek)
-# }
-
 # funkcija, ki vrne želen histogram odvisno od S0, u, d, U, R, T, type, N in M
 histogram <- function(S0, u, d, U, R, T, type, N, M) {
-  # enako kot zgoraj zakomentirana funkcija monte_simulacija:
+  # ponovi funkcijo monte M-krat in nam vrne vektor 
+  #          M vrednosti funkcije monte:
   vek <- c()
   while (M > 0) {
     vek <- append(vek, monte(S0, u, d, U, R, T, type, N))
