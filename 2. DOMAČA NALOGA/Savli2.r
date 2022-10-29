@@ -88,7 +88,7 @@ binomski(50,1.05,0.95,5,0.03,3,"call")
 binomski(50,1.05,0.95,5,0.03,3,"put")
 binomski(50, 1.05, 0.9 , 10, 0.03, 5, "call")
 binomski(60, 1.05, 0.95, 15, 0.01, 8, "put" )
-binomski(70, 1.05, 1, 7, 0, 5, "call")           ## !! TALE NE VRNE PRAVILNO - vrne 13.41159 !!
+binomski(70, 1.05, 1, 7, 0, 5, "call")           ## !! TALE NE VRNE PRAVILNO - vrne 13.41159 namesto 0 !!
 binomski(80, 1.1, 0.95,  9, 0.05, 4, "put" )
 binomski(90, 1.15, 0.8, 10, 0.01, 3, "call")
 
@@ -128,7 +128,7 @@ monte <- function(S0, u, d, U, R, T, type, N) {
 }
 
 monte(50, 1.05, 0.9, 10, 0.03, 5, "call", 100)
-monte(70, 1.05, 1, 7, 0, 5, "put", 2000)
+monte(70, 1.05, 1, 7, 0, 5, "put", 2000) ## !! TALE NE VRNE PRAVILNO - vrne VEDNO 19.3397 namesto 0 !!
 monte(90, 1.15, 0.8 , 10, 0.01, 3, "call", 50000)
 
 # ==============================================================================
