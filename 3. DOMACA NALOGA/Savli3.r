@@ -20,7 +20,10 @@ histogram
 
 # b)
 # podatkom primerna je Paretova porazdelitev (ukaz: pareto1; parametri: shape=alfa in min=x_m)
-parametri <- mde(vzorec1, ppareto1, start = list("shape" = 1, "min" = 1), measure = "CvM")
+parametri <- mde(vzorec1, 
+                 ppareto1, 
+                 start = list("shape" = 1, "min" = 1), 
+                 measure = "CvM")
 # parametra:
 shape <- parametri$estimate[1]
 min <- parametri$estimate[2]
@@ -52,13 +55,13 @@ plot(ecdf(vzorec1),
      main = "Porazdelitvena funkcija odskodnin", 
      ylab = "Porazdelitvena funkcija", 
      xlab = "Visina odskodnine",
-     cex = .6)
+     cex = 0.4)
 curve(ppareto1(x, shape, min), 
       col = "blue",
       add = TRUE,
       lwd = 2)
-legend(4, 0.6, 
-       legend = c("empiricna porazdelitev", "Paretova porazdelitev"), 
+legend(3.5, 0.4, 
+       legend = c("Empiricna porazdelitev", "Paretova porazdelitev"), 
        box.lty = 0, 
        col = c("black", "blue"),
        lty = 1:1, 
@@ -182,7 +185,7 @@ plot(S,
 plot(ecdf(simulacija_S), 
      add = TRUE, 
      col = "green")
-legend(45, 0.3, 
+legend(40, 0.3, 
        legend = c("Panjerjev algoritem","Monte Carlo simulacija"), 
        box.lty = 0, 
        col = c("black", "green"), 
