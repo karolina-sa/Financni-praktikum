@@ -42,12 +42,12 @@ izplacilo <- function(vrsta, T, type) {
   return(izplacilo)
 }
 
-izplacilo(c(50,52.5,49.88,52.37,49.75,52.24),3,"call")
-izplacilo(c(50,52.5,55.12,57.88,60.78,63.81),3,"put")
-izplacilo(c(50,52.5,55.12,57.88,60.78,63.81),3,"call")
-izplacilo(c(60,61.2,59.98,58.78,57.6,58.75,57.58),5,"put")
-izplacilo(c(60,58.8,57.62,58.78,59.95,61.15,62.37),4,"call")
-izplacilo(c(70,66.5,69.83,73.32,76.98,73.13,69.48),2,"put")
+# izplacilo(c(50,52.5,49.88,52.37,49.75,52.24),3,"call")
+# izplacilo(c(50,52.5,55.12,57.88,60.78,63.81),3,"put")
+# izplacilo(c(50,52.5,55.12,57.88,60.78,63.81),3,"call")
+# izplacilo(c(60,61.2,59.98,58.78,57.6,58.75,57.58),5,"put")
+# izplacilo(c(60,58.8,57.62,58.78,59.95,61.15,62.37),4,"call")
+# izplacilo(c(70,66.5,69.83,73.32,76.98,73.13,69.48),2,"put")
 #           pri vseh mi vrne pravilno
 
 # ==============================================================================
@@ -59,8 +59,9 @@ binomski <- function(S0, u, d, U, R, T, type) {
   q <- (1 + R - d) / (u - d)
   cube <- hcube(rep(2, U)) - 1 
   # 0 zamenjam z d, 1 pa z u:
-  cube[cube == 0] <- d
-  cube[cube == 1] <- u
+  a <- u ^ cube
+  b <- d ^ (1 - cube)
+  cube <- a * b
   # S0 spremenim v vektor:
   vek_S0 <- rep(S0, nrow(cube))
   # na začetek dodam nov stolpec S0
@@ -84,13 +85,13 @@ binomski <- function(S0, u, d, U, R, T, type) {
   return(premija_opcije)
 }
 
-binomski(50,1.05,0.95,5,0.03,3,"call")
-binomski(50,1.05,0.95,5,0.03,3,"put")
-binomski(50, 1.05, 0.9 , 10, 0.03, 5, "call")
-binomski(60, 1.05, 0.95, 15, 0.01, 8, "put" )
-binomski(70, 1.05, 1, 7, 0, 5, "call")           ## !! TALE NE VRNE PRAVILNO - vrne 13.41159 namesto 0 !!
-binomski(80, 1.1, 0.95,  9, 0.05, 4, "put" )
-binomski(90, 1.15, 0.8, 10, 0.01, 3, "call")
+# binomski(50,1.05,0.95,5,0.03,3,"call")
+# binomski(50,1.05,0.95,5,0.03,3,"put")
+# binomski(50, 1.05, 0.9 , 10, 0.03, 5, "call")
+# binomski(60, 1.05, 0.95, 15, 0.01, 8, "put" )
+# binomski(70, 1.05, 1, 7, 0, 5, "call")
+# binomski(80, 1.1, 0.95,  9, 0.05, 4, "put" )
+# binomski(90, 1.15, 0.8, 10, 0.01, 3, "call")
 
 #-------------------------------------------------------------------------------
 
@@ -117,8 +118,9 @@ monte <- function(S0, u, d, U, R, T, type, N) {
   st_d <- U - st_u
 
   vek_S0 <- rep(S0, N)
-  bin_matrika[bin_matrika == 0] <- d
-  bin_matrika[bin_matrika == 1] <- u
+  a <- u ^ bin_matrika
+  b <- d ^ (1 - bin_matrika)
+  bin_matrika <- a * b
   bin_matrika <- cbind(vek_S0, bin_matrika)
   bin_matrika <- t(apply(bin_matrika, 1, cumprod))
   vek_izplacilo <- apply(bin_matrika, 1, function(x) izplacilo(x, T, type))
@@ -127,9 +129,9 @@ monte <- function(S0, u, d, U, R, T, type, N) {
   return(premija_opcije)
 }
 
-monte(50, 1.05, 0.9, 10, 0.03, 5, "call", 100)
-monte(70, 1.05, 1, 7, 0, 5, "put", 2000) ## !! TALE NE VRNE PRAVILNO - vrne VEDNO 19.3397 namesto 0 !!
-monte(90, 1.15, 0.8 , 10, 0.01, 3, "call", 50000)
+# monte(50, 1.05, 0.9, 10, 0.03, 5, "call", 100)
+# monte(70, 1.05, 1, 7, 0, 5, "put", 2000)         
+# monte(90, 1.15, 0.8 , 10, 0.01, 3, "call", 50000)
 
 # ==============================================================================
 # ==============================================================================
